@@ -16,7 +16,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [time, setTime] = useState('60000');
     const [order, setOrder] = useState('top');
-    const [language, setLanguage] = useState('en,fr');
+    const [language, setLanguage] = useState('en,fr,de');
 
     const selectRef = useRef(null);
 
