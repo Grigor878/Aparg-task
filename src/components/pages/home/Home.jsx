@@ -52,9 +52,9 @@ const Home = () => {
     //     const interval = setInterval(() => {
     //         fetchData();
     //         console.log('updated')
-    //       }, 60000)
+    //       }, time)
     //       return () => clearInterval(interval)
-    // }, [fetchData])
+    // }, [fetchData,time])
 
     const handleReset = () => [
         setOrder('top'),
@@ -70,14 +70,10 @@ const Home = () => {
                     <button className='refresh__btn' onClick={refreshPage}><IoIosRefresh className='btn__icons refresh' />Refresh</button>
                     <button className='filter__btn' onClick={onToggleClick}><FaFilter className='btn__icons filter' />Filters</button>
                 </div>
-
-
-                {/* <div class="arrow-up"></div> */}
             </div>
 
             <div className='filter__card' ref={selectRef}>
                 <select className='select__autofresh' name="autofresh" onChange={e => setTime(e.target.value)}>
-                    AUTOREFRESH
                     <option value="60000" >1 min</option>
                     <option value="10000">10 sec</option>
                     <option value="30000">30 sec</option>
