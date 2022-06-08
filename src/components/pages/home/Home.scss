@@ -379,6 +379,7 @@
     padding: 5px 10px 4px;
     border-radius: 3px;
     background-color: $white-four;
+    cursor: pointer;
 
     @media screen and (max-width: 414px) {
       border-bottom: 1px solid $white-two;
@@ -391,10 +392,6 @@
       box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2) !important;
       background-color: $white-four !important;
     }
-
-    // @media screen and (max-width: 600px) {
-    //   max-width: 172px;
-    // }
   }
 
   .select__reset {
@@ -409,6 +406,7 @@
     padding: 12px 67px 12px 67px;
     border-radius: 3px;
     background-color: $windows-blue-15;
+    cursor: pointer;
 
     @media screen and (max-width: 600px) {
       padding: 12px 30px 12px 30px;
