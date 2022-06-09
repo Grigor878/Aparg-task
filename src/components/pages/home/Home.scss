@@ -135,15 +135,6 @@
   }
 }
 
-// .arrow-up {
-//   width: 0;
-//   height: 0;
-//   border-left: 5px solid transparent;
-//   border-right: 5px solid transparent;
-
-//   border-bottom: 5px solid black;
-// }
-
 // Accordion
 .accordion {
   margin-top: 20px;
@@ -358,6 +349,7 @@
   background-color: #eee;
   transition: all 0.5s ease;
   margin-top: 14px;
+  position: relative;
 
   @media screen and (max-width: 768px) {
     padding: 20px 13px 20px 12px;
@@ -369,6 +361,21 @@
     margin-top: 12px;
     flex-direction: column;
     gap: 0;
+  }
+
+  .arrow-up {
+    width: 30px;
+    height: 35px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #eee;
+    position: absolute;
+    top: -35px;
+    left: 140px;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .select__autofresh,
