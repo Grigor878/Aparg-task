@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './Home.scss'
-import axios from 'axios';
-// import Api from '../../../api/Api';
+import Api from '../../../api/Api';
 import loader from '../../../assets/loader.gif'
 import { IoIosRefresh } from 'react-icons/io';
 import { FaFilter } from 'react-icons/fa';
@@ -15,7 +14,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [time, setTime] = useState(60000);
     const [order, setOrder] = useState('top');
-    const [language, setLanguage] = useState('en,fr');
+    const [language, setLanguage] = useState('en,fr,de');
 
     const selectRef = useRef(null);
 
@@ -33,9 +32,11 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const url = `https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=${language}&order=${order}`
+            // const url = `https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=${language}&order=${order}`
+            const points = `limit=20&languages=${language}&order=${order}token=98807224-712f-4658-9d31-98f77773333`
             try {
-                const response = await axios.get(url);
+                // const response = await axios.get(url);
+                const response = await Api.get(points);
                 // console.log(response.data.stories);
                 setData(response.data.stories);
                 setLoading(true);
@@ -47,7 +48,7 @@ const Home = () => {
         const interval = setInterval(() => {
             fetchData();
             setLoading(false);
-            console.log('updated')
+            console.log('updated');
         }, time)
         fetchData();
         return () => clearInterval(interval)
@@ -55,7 +56,7 @@ const Home = () => {
 
     const handleReset = () => [
         setOrder('top'),
-        setLanguage('en,fr'),
+        setLanguage('en,fr,de'),
     ]
 
     return (
