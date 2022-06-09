@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Home.scss'
 import axios from 'axios';
 // import Api from '../../../api/Api';
@@ -10,13 +10,12 @@ import { BiLike, BiDislike } from 'react-icons/bi';
 import { refreshPage } from '../../../helpers/Utils'
 
 const Home = () => {
-
     const [accordion, setAccordion] = useState(-1);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [time, setTime] = useState('60000');
+    const [time, setTime] = useState(60000);
     const [order, setOrder] = useState('top');
-    const [language, setLanguage] = useState('en,fr,de');
+    const [language, setLanguage] = useState('en,fr');
 
     const selectRef = useRef(null);
 
@@ -32,33 +31,31 @@ const Home = () => {
         setAccordion(index);
     }
 
-    const fetchData = useCallback(async () => {
-        const url = `https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=${language}&order=${order}`
-        try {
-            const response = await axios.get(url);
-            // console.log(response.data.stories);
-            setData(response.data.stories);
-            setLoading(true);
-        } catch (error) {
-            console.warn(`Error: ${error.message}`);
-        }
-    }, [language, order])
-
     useEffect(() => {
-        fetchData();
-    }, [fetchData])
+        const fetchData = async () => {
+            const url = `https://cf-endpoint-proxy.herokuapp.com/webapi/v1/stories?limit=20&languages=${language}&order=${order}`
+            try {
+                const response = await axios.get(url);
+                // console.log(response.data.stories);
+                setData(response.data.stories);
+                setLoading(true);
+            } catch (error) {
+                console.warn(`Error: ${error.message}`);
+            }
+        }
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         fetchData();
-    //         console.log('updated')
-    //       }, time)
-    //       return () => clearInterval(interval)
-    // }, [fetchData,time])
+        const interval = setInterval(() => {
+            fetchData();
+            setLoading(false);
+            console.log('updated')
+        }, time)
+        fetchData();
+        return () => clearInterval(interval)
+    }, [language, order, time])
 
     const handleReset = () => [
         setOrder('top'),
-        setLanguage('en,fr,de'),
+        setLanguage('en,fr'),
     ]
 
     return (
@@ -70,10 +67,13 @@ const Home = () => {
                     <button className='refresh__btn' onClick={refreshPage}><IoIosRefresh className='btn__icons refresh' />Refresh</button>
                     <button className='filter__btn' onClick={onToggleClick}><FaFilter className='btn__icons filter' />Filters</button>
                 </div>
+
+
+                {/* <div class="arrow-up"></div> */}
             </div>
 
             <div className='filter__card' ref={selectRef}>
-                <select className='select__autofresh' name="autofresh" onChange={e => setTime(e.target.value)}>
+                <select className='select__autofresh' name="autofresh" onChange={e => setTime(parseInt(e.target.value))}>
                     <option value="60000" >1 min</option>
                     <option value="10000">10 sec</option>
                     <option value="30000">30 sec</option>
