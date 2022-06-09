@@ -67,12 +67,10 @@ const Home = () => {
                     <button className='refresh__btn' onClick={refreshPage}><IoIosRefresh className='btn__icons refresh' />Refresh</button>
                     <button className='filter__btn' onClick={onToggleClick}><FaFilter className='btn__icons filter' />Filters</button>
                 </div>
-
-
-                {/* <div class="arrow-up"></div> */}
             </div>
 
             <div className='filter__card' ref={selectRef}>
+                <div className="arrow-up"></div>
                 <select className='select__autofresh' name="autofresh" onChange={e => setTime(parseInt(e.target.value))}>
                     <option value="60000" >1 min</option>
                     <option value="10000">10 sec</option>
